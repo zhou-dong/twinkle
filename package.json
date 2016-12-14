@@ -22,7 +22,6 @@
     "react-dom": "^15.4.1"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
     "babel-core": "^6.20.0",
     "babel-loader": "^6.2.9",
     "babelify": "^7.3.0",
