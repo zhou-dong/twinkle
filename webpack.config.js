@@ -4,10 +4,10 @@ var webpack = require('webpack');
 module.exports = {
   context: __dirname,
   devtool: debug ? "inline-sourcemap" : null,
-  entry: "./js/scripts.js",
+  entry: "./src/script.js",
   output: {
-    path: __dirname + "/js",
-    filename: "scripts.min.js"
+    path: __dirname + "/dist",
+    filename: "script.min.js"
   },
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
