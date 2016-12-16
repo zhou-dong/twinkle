@@ -1,7 +1,7 @@
 /*jshint esnext: true */
 
 
-class Twinkle {
+class Twinkle extends EventEmitter {
 
 	constructor(element) {
 		this.element = element;
