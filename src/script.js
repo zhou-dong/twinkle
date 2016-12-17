@@ -1,6 +1,5 @@
 /*jshint esnext: true */
 
-
 class Twinkle extends EventEmitter {
 
 	constructor(element) {
@@ -80,12 +79,9 @@ var treeData = {
 	}]
 };
 
-
-
 var root = treeData;
 
-var width = 200,
-	height = 300;
+var width = 200, height = 300;
 
 var tree = d3.tree().size([width, height]);
 
@@ -97,7 +93,6 @@ nodes = tree(nodes);
 
 var g = canvas.append("g")
 	.attr("transform", "translate(200,200)");
-
 
 // adds each node as a group
 var node = g.selectAll(".node")
@@ -144,8 +139,6 @@ node.append("text")
 	.text(function(d) {
 		return d.data.name;
 	});
-
-
 
 // adds the links between the nodes
 var link = g.selectAll(".link")
