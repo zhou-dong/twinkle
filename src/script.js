@@ -1,3 +1,5 @@
+import EventEmitter = from 'events';
+
 /*jshint esnext: true */
 
 class Twinkle extends EventEmitter {
@@ -30,13 +32,11 @@ circle.style("fill", "red")
 	.style("stroke-width", "10px")
 	.style("stroke-opacity", 0.5);
 
-
 var arc = d3.arc()
 	.innerRadius(0)
 	.outerRadius(80)
 	.startAngle(0)
 	.endAngle(Math.PI / 2);
-
 
 canvas.append("path").attr("fill", "yellow")
 	.attr("transform", "translate(120,99)")
@@ -48,7 +48,6 @@ canvas.append("path").attr("fill", "yellow")
 var line = d3.line()
 	.x(10)
 	.y(20);
-
 
 var treeData = {
 	"name": "Top Level",
@@ -81,7 +80,8 @@ var treeData = {
 
 var root = treeData;
 
-var width = 200, height = 300;
+var width = 200,
+	height = 300;
 
 var tree = d3.tree().size([width, height]);
 
