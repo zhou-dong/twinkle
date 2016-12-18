@@ -1,4 +1,6 @@
 import EventEmitter = from 'events';
+import react from "react";
+import ReactDom from "react-dom";
 
 /*jshint esnext: true */
 
