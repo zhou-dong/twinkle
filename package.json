@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/zhou-dong/warrior#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
     "d3": "^4.4.0",
+    "express": "^4.14.0",
+    "multer": "^1.2.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1"
   },
