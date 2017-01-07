@@ -18,6 +18,7 @@ app.use('/about', about);
 app.get('/', function(req, res) {
 	console.log("Cookies: ", req.cookies);
 	res.send("Hello World...");
+	res.render('pages/index') ;
 });
 
 var server = app.listen(8081, function() {
