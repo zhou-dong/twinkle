@@ -1,8 +1,23 @@
-var express = require("express");
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser');
+
+var about = require('./routers/about');
+
 var app = express();
 
-app.get("/", function(req, res) {
-	res.send("Hello World...")
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use(cookieParser())
+app.use(express.static('public'));
+
+app.use('/about', about);
+
+app.get('/', function(req, res) {
+	console.log("Cookies: ", req.cookies);
+	res.send("Hello World...");
 });
 
 var server = app.listen(8081, function() {
