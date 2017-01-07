@@ -1,21 +1,21 @@
 {
-  "name": "warrior",
+  "name": "twinkle",
   "version": "1.0.0",
-  "description": "react d3",
+  "description": " ",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhou-dong/warrior.git"
+    "url": "git+https://github.com/zhou-dong/twinkle.git"
   },
-  "author": "dong zhou",
+  "author": "Dong Zhou",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zhou-dong/warrior/issues"
+    "url": "https://github.com/zhou-dong/twinkle/issues"
   },
-  "homepage": "https://github.com/zhou-dong/warrior#readme",
+  "homepage": "https://github.com/zhou-dong/twinkle#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
