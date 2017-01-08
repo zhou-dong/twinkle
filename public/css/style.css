@@ -6,7 +6,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 90px;
+  margin-bottom: 80px;
   font-family: 'Raleway', Helvetica, Arial, sans-serif;
 }
 
@@ -15,7 +15,7 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 90px;
+  height: 80px;
   background-color: ;
   font-weight: 300;
 }
