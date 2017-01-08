@@ -3,8 +3,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser');
 
+var projectConfig = require('./config/project.config');
 var about = require('./routers/about');
-var index = require('./routers/index');
 
 var app = express();
 
@@ -15,10 +15,13 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/about', about);
-app.use('/', index);
+app.get('/', function(req, res) {
+	res.render('pages/index', projectConfig);
+});
 
-var server = app.listen(8081, function() {
-	var host = server.address().address
-	var port = server.address().port
-	console.log("Server is listening at http://%s:%s", host, port)
+var server = app.listen(projectConfig.server_port, function() {
+	//var host = server.address().address
+	var host = projectConfig.server_host;
+	var port = server.address().port;
+	console.log("Node running at http://%s:%s", host, port)
 });
