@@ -6,6 +6,7 @@ var svgContainer = d3.select("body").append("svg")
 function Cell(x,y){
   this.x = x;
   this.y = y;
+  this.text = x;
 }
 var cells = function(){
   var result = [];
@@ -23,7 +24,7 @@ var color = d3.scaleLinear()
 .domain([0,100])
 .range(['yellow', 'red']);
 
-svgContainer.selectAll("rect")
+var table = svgContainer.selectAll("rect")
   .data(cells())
   .enter()
   .append("rect")
@@ -34,4 +35,17 @@ svgContainer.selectAll("rect")
   .attr('fill', function(d,i){return color(i);})
   .attr('rx', 2)
   .attr('ry',2)
+;
+
+svgContainer.selectAll("text")
+  .append("text")
+  .data(cells())
+  .enter()
+  .append('text')
+  .attr("x", function(d,i){return d.x * 21;})
+  .attr('y', function(d,i){return d.y * 21;})
+  .text(function(d){return d.text;})
+  .attr("fill", "black")
+  .attr("font-size", "20px")
+  .attr("font-family", "sans-serif")
 ;
