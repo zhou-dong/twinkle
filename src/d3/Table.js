@@ -18,6 +18,10 @@ function translate(x, y) {
   return 'translate(' + x + ',' + y + ')';
 }
 
+function max(x ,y){
+  return x > y ? x : y ;
+}
+
 var cell = {
   length: 50,
   start: 51,
@@ -31,8 +35,11 @@ var w2 = "world";
 var table = {
   rowSize: w1.length + 2,
   colSize: w2.length + 2,
-  translate: translate(18, 30)
+  translate: translate(18, 30),
+  max: max(w1.length, w2.length) + 2
 };
+
+
 
 var svg = {
   width: 1200,
@@ -100,8 +107,7 @@ d3.range(1, w2.length + 1).forEach(function(entry, i) {
   data.push(createData(entry, 2 + i, 1));
 });
 
-var len = w1.length > w2.length ? w1.length:w2.length;
-var sColor = d3.scaleLinear().domain([0, len]).range([cell.color, 'brown']) ;
+var sColor = d3.scaleLinear().domain([0, table.max]).range([cell.color, 'brown']) ;
 
 svg.select('g')
   .selectAll('text')
