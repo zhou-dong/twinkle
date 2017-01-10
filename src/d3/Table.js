@@ -56,7 +56,7 @@ svg.append('g')
     return coordinate.col * cell.start;
   })
   .on('mouseover', function(d) {
-    d3.select(this).style('stroke', 'brown');
+    d3.select(this).style('stroke', 'black');
   })
   .on('mouseout', function(d) {
     d3.select(this).style('stroke', 'white');
@@ -67,7 +67,8 @@ svg.append('g')
   .attr('rx', cell.radius)
   .attr('ry', cell.radius)
   .attr('stroke', 'white')
-  .attr('stroke-width', 1);
+  .attr('stroke-width', 1)
+  .classed("rect-", true);
 
 var textHelper = {
   rowOffset: 8,
@@ -98,6 +99,9 @@ d3.range(w1.length + 1).forEach(function(entry, i) {
 d3.range(1, w2.length + 1).forEach(function(entry, i) {
   data.push(createData(entry, 2 + i, 1));
 });
+
+var len = w1.length > w2.length ? w1.length:w2.length;
+var sColor = d3.scaleLinear().domain([0, len]).range([cell.color, 'brown']) ;
 
 svg.select('g')
   .selectAll('text')
@@ -130,6 +134,13 @@ function add(row, col, text) {
     .attr("font-size", textHelper.fontSize)
     .attr("font-family", textHelper.fontFamily)
     .attr('fill', textHelper.color);
+  // update background color
+  var index = col * table.colSize + row ;
+  svg.select('g').selectAll('rect').filter(function(d,i){
+   if(i === index){
+     d3.select(this).attr('fill',sColor(col));
+   }
+  });
 }
 
 function drawLine(row1, col1, row2, col2) {
