@@ -133,30 +133,30 @@ function drawLine(row1, col1, row2, col2) {
     .attr("y1", row1 * cell.y + 0.5 * cell.height)
     .attr("x2", col2 * cell.x + 0.5 * cell.width)
     .attr("y2", row2 * cell.y + 0.5 * cell.height)
-    .attr("stroke-width", 1)
+    .attr("stroke-width", 2)
     .attr("stroke", "black")
     .attr("marker-end", "url(#triangle)");
 
   svg.append("svg:defs").append("svg:marker")
     .attr("id", "triangle")
     .attr("refX", 16)
-    .attr("refY", 6)
-    .attr("markerWidth", 30)
-    .attr("markerHeight", 30)
+    .attr("refY", 5)
+    .attr("markerWidth", 10)
+    .attr("markerHeight", 10)
     .attr("orient", "auto")
     .append("path")
-    .attr("d", "M 0 0 12 6 0 12 3 6")
-    .style("fill", "black");
+    .attr("d", "M 0 0 10 5 0 10 2 5")
+    .style("fill", "blue");
 }
+
 
 add(2, 2, 0);
 add(2, 3, 0);
 
 drawLine(1, 1, 2, 2);
 drawLine(2, 2, 2, 3);
-
 drawLine(2, 3, 3, 4);
 drawLine(3, 4, 4, 4);
-drawLine(4, 4, 5,4);
-drawLine(5, 4, 6,5);
-drawLine(6, 5, 6,6);
+drawLine(4, 4, 5, 4);
+drawLine(5, 4, 6, 5);
+drawLine(6, 5, 6, 6);
