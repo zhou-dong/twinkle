@@ -19,12 +19,9 @@ function translate(x, y) {
 }
 
 var cell = {
-  width: 50,
-  height: 50,
-  x: 51,
-  y: 51,
-  rx: 4,
-  ry: 4,
+  length: 50,
+  start: 51,
+  radius: 4,
   color: 'lightgreen'
 };
 
@@ -53,16 +50,24 @@ svg.append('g')
   .enter()
   .append("rect")
   .attr("x", function(coordinate) {
-    return coordinate.row * cell.x;
+    return coordinate.row * cell.start;
   })
   .attr('y', function(coordinate) {
-    return coordinate.col * cell.y;
+    return coordinate.col * cell.start;
   })
-  .attr('width', cell.width)
-  .attr('height', cell.height)
+  .on('mouseover', function(d) {
+    d3.select(this).style('stroke', 'brown');
+  })
+  .on('mouseout', function(d) {
+    d3.select(this).style('stroke', 'white');
+  })
+  .attr('width', cell.length)
+  .attr('height', cell.length)
   .attr('fill', cell.color)
-  .attr('rx', cell.rx)
-  .attr('ry', cell.ry);
+  .attr('rx', cell.radius)
+  .attr('ry', cell.radius)
+  .attr('stroke', 'white')
+  .attr('stroke-width', 1);
 
 var textHelper = {
   rowOffset: 8,
@@ -100,10 +105,10 @@ svg.select('g')
   .enter()
   .append('text')
   .attr('x', function(d) {
-    return d.col * cell.x + 0.5 * cell.width + textHelper.colOffset;
+    return d.col * cell.start + 0.5 * cell.length + textHelper.colOffset;
   })
   .attr('y', function(d) {
-    return d.row * cell.y + 0.5 * cell.height + textHelper.rowOffset;
+    return d.row * cell.start + 0.5 * cell.length + textHelper.rowOffset;
   })
   .text(function(d) {
     return d.text;
@@ -116,10 +121,10 @@ function add(row, col, text) {
   svg.select('g')
     .append('text')
     .attr('x', function() {
-      return col * cell.x + 0.5 * cell.width + textHelper.colOffset;
+      return col * cell.start + 0.5 * cell.length + textHelper.colOffset;
     })
     .attr('y', function() {
-      return row * cell.y + 0.5 * cell.height + textHelper.rowOffset;
+      return row * cell.start + 0.5 * cell.length + textHelper.rowOffset;
     })
     .text(text)
     .attr("font-size", textHelper.fontSize)
@@ -129,32 +134,24 @@ function add(row, col, text) {
 
 function drawLine(row1, col1, row2, col2) {
   svg.select('g').append("line")
-    .attr("x1", lineStartX(row1, col1, row2, col2))
-    .attr("y1", lineStartY(row1, col1, row2, col2))
-    .attr("x2", lineEndX(row1, col1, row2, col2))
-    .attr("y2", lineEndY(row1, col1, row2, col2))
+    .attr("x1", function() {
+      var center = col1 * cell.start + 0.5 * cell.length;
+      return (col1 !== col2) ? center + 0.2 * cell.length : center;
+    })
+    .attr("y1", function() {
+      var center = row1 * cell.start + 0.5 * cell.length;
+      return (row1 === row2) ? center : center + 0.2 * cell.length;
+    })
+    .attr("x2", function() {
+      var center = col2 * cell.start + 0.5 * cell.length;
+      return (col1 === col2) ? center : center - 0.2 * cell.length;
+    })
+    .attr("y2", function() {
+      var center = row2 * cell.start + 0.5 * cell.length;
+      return (row1 === row2) ? center : center - 0.2 * cell.length;
+    })
     .attr("stroke-width", 2)
     .attr("stroke", "black");
-}
-
-function lineStartX(row1, col1, row2, col2) {
-  var center = col1 * cell.x + 0.5 * cell.width;
-  return (col1 !== col2) ? center + 0.2 * cell.width : center;
-}
-
-function lineStartY(row1, col1, row2, col2) {
-  var center = row1 * cell.y + 0.5 * cell.height;
-  return (row1 === row2) ? center : center + 0.2 * cell.height;
-}
-
-function lineEndX(row1, col1, row2, col2) {
-  var center = col2 * cell.x + 0.5 * cell.width;
-  return (col1 === col2) ? center : center - 0.2 * cell.width;
-}
-
-function lineEndY(row1, col1, row2, col2) {
-  var center = row2 * cell.y + 0.5 * cell.height;
-  return (row1 === row2) ? center : center - 0.2 * cell.width;
 }
 
 add(2, 2, 0);
