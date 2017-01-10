@@ -64,15 +64,19 @@ svg.append('g')
   .attr('rx', cell.rx)
   .attr('ry', cell.ry);
 
+var textHelper = {
+  rowOffset: 8,
+  colOffset: -5,
+  color: 'black',
+  fontSize: 20,
+  fontFamily: "sans - serif"
+}
+
 function createData(text, row, col) {
   return {
     text: text,
     row: row,
-    col: col,
-    rowOffset: 8,
-    colOffset: -5,
-    color: 'black',
-    size: 10
+    col: col
   };
 }
 
@@ -86,8 +90,8 @@ w2.split('').forEach(function(entry, i) {
 d3.range(w1.length + 1).forEach(function(entry, i) {
   data.push(createData(entry, 1, i + 1));
 });
-d3.range(w2.length + 1).forEach(function(entry, i) {
-  data.push(createData(entry, 1 + i, 1));
+d3.range(1, w2.length + 1).forEach(function(entry, i) {
+  data.push(createData(entry, 2 + i, 1));
 });
 
 svg.select('g')
@@ -96,16 +100,63 @@ svg.select('g')
   .enter()
   .append('text')
   .attr('x', function(d) {
-    return d.col * cell.x + 0.5 * cell.width + d.colOffset;
+    return d.col * cell.x + 0.5 * cell.width + textHelper.colOffset;
   })
   .attr('y', function(d) {
-    return d.row * cell.y + 0.5 * cell.height + d.rowOffset;
+    return d.row * cell.y + 0.5 * cell.height + textHelper.rowOffset;
   })
   .text(function(d) {
     return d.text;
   })
-  .attr("font-size", "20px")
-  .attr("font-family", "sans-serif")
-  .attr('fill', function(d) {
-    return d.color;
-  });
+  .attr("font-size", textHelper.fontSize)
+  .attr("font-family", textHelper.fontFamily)
+  .attr('fill', textHelper.color);
+
+function add(row, col, text) {
+  svg.select('g')
+    .append('text')
+    .attr('x', function() {
+      return col * cell.x + 0.5 * cell.width + textHelper.colOffset;
+    })
+    .attr('y', function() {
+      return row * cell.y + 0.5 * cell.height + textHelper.rowOffset;
+    })
+    .text(text)
+    .attr("font-size", textHelper.fontSize)
+    .attr("font-family", textHelper.fontFamily)
+    .attr('fill', textHelper.color);
+}
+
+function drawLine(row1, col1, row2, col2) {
+  svg.select('g').append("line")
+    .attr("x1", col1 * cell.x + 0.5 * cell.width)
+    .attr("y1", row1 * cell.y + 0.5 * cell.height)
+    .attr("x2", col2 * cell.x + 0.5 * cell.width)
+    .attr("y2", row2 * cell.y + 0.5 * cell.height)
+    .attr("stroke-width", 1)
+    .attr("stroke", "black")
+    .attr("marker-end", "url(#triangle)");
+
+  svg.append("svg:defs").append("svg:marker")
+    .attr("id", "triangle")
+    .attr("refX", 16)
+    .attr("refY", 6)
+    .attr("markerWidth", 30)
+    .attr("markerHeight", 30)
+    .attr("orient", "auto")
+    .append("path")
+    .attr("d", "M 0 0 12 6 0 12 3 6")
+    .style("fill", "black");
+}
+
+add(2, 2, 0);
+add(2, 3, 0);
+
+drawLine(1, 1, 2, 2);
+drawLine(2, 2, 2, 3);
+
+drawLine(2, 3, 3, 4);
+drawLine(3, 4, 4, 4);
+drawLine(4, 4, 5,4);
+drawLine(5, 4, 6,5);
+drawLine(6, 5, 6,6);
