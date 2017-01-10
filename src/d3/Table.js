@@ -129,26 +129,33 @@ function add(row, col, text) {
 
 function drawLine(row1, col1, row2, col2) {
   svg.select('g').append("line")
-    .attr("x1", col1 * cell.x + 0.5 * cell.width)
-    .attr("y1", row1 * cell.y + 0.5 * cell.height)
-    .attr("x2", col2 * cell.x + 0.5 * cell.width)
-    .attr("y2", row2 * cell.y + 0.5 * cell.height)
+    .attr("x1", lineStartX(row1, col1, row2, col2))
+    .attr("y1", lineStartY(row1, col1, row2, col2))
+    .attr("x2", lineEndX(row1, col1, row2, col2))
+    .attr("y2", lineEndY(row1, col1, row2, col2))
     .attr("stroke-width", 2)
-    .attr("stroke", "black")
-    .attr("marker-end", "url(#triangle)");
-
-  svg.append("svg:defs").append("svg:marker")
-    .attr("id", "triangle")
-    .attr("refX", 16)
-    .attr("refY", 5)
-    .attr("markerWidth", 10)
-    .attr("markerHeight", 10)
-    .attr("orient", "auto")
-    .append("path")
-    .attr("d", "M 0 0 10 5 0 10 2 5")
-    .style("fill", "blue");
+    .attr("stroke", "black");
 }
 
+function lineStartX(row1, col1, row2, col2) {
+  var center = col1 * cell.x + 0.5 * cell.width;
+  return (col1 !== col2) ? center + 0.2 * cell.width : center;
+}
+
+function lineStartY(row1, col1, row2, col2) {
+  var center = row1 * cell.y + 0.5 * cell.height;
+  return (row1 === row2) ? center : center + 0.2 * cell.height;
+}
+
+function lineEndX(row1, col1, row2, col2) {
+  var center = col2 * cell.x + 0.5 * cell.width;
+  return (col1 === col2) ? center : center - 0.2 * cell.width;
+}
+
+function lineEndY(row1, col1, row2, col2) {
+  var center = row2 * cell.y + 0.5 * cell.height;
+  return (row1 === row2) ? center : center - 0.2 * cell.width;
+}
 
 add(2, 2, 0);
 add(2, 3, 0);
