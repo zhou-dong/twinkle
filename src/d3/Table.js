@@ -171,13 +171,4 @@ function drawLine(row1, col1, row2, col2) {
     .attr("stroke", "black");
 }
 
-add(2, 2, 0);
-add(2, 3, 0);
-
-drawLine(1, 1, 2, 2);
-drawLine(2, 2, 2, 3);
-drawLine(2, 3, 3, 4);
-drawLine(3, 4, 4, 4);
-drawLine(4, 4, 5, 4);
-drawLine(5, 4, 6, 5);
-drawLine(6, 5, 6, 6);
+//TODO last stage to intergrate all steps
