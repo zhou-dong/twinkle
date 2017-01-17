@@ -1,5 +1,8 @@
 cat
-cats catsdogcats
+cats
+catsdogcats
 dog
-dogcatsdog hippopotamuses rat
+dogcatsdog
+hippopotamuses
+rat
 ratcatdogcat
