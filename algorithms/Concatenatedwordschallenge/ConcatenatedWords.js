@@ -3,7 +3,6 @@ var readline = require('readline');
 
 // Use Trie structure to instore words to save memory space
 var Trie = function() {
-	var keys = [];
 	var TrieNode = function() {
 		this.isWord = false;
 		this.children = {};
