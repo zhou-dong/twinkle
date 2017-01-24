@@ -11,6 +11,20 @@ body {
   font-family: 'Raleway', Helvetica, Arial, sans-serif;
 }
 
+code, kbd, pre, samp {
+  font-family: 'Raleway', Helvetica, Arial, sans-serif, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 20px;
+}
+
+.background-border-clear{
+  background: none;
+  border: 0px;
+}
+
+.hljs{
+  background: none;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
