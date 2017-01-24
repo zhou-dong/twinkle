@@ -4,12 +4,6 @@
 	<% include ../partials/head %>
 
 	<style type="text/css">
-		main{
-			font-size: 40px;
-		}
-
-
-
 
 	</style>
 
@@ -17,32 +11,33 @@
 <body>
 	<% include ../partials/header %>
 		
-	<main class="container">
+<div class="row">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-8">
 		
-	<pre class="background-border-clear">
-		
-	<code class="JavaScript">
-		var author = {
-			name: 'Dong Zhou',
-			phone: '408-893-3854'
-		}
+<pre class="background-border-clear"><code class="Java">
+var author = { name: 'Dong Zhou' }
 
-	</code>
+author.contactInfo = {
+	email: 'rick0913@gmail.com',
+	github: 'https://github.com/zhou-dong'
+}
 
-	</pre>
+author.languages = ['Java', 'JavaScript', 'Python', 'R'];
 
-	<pre class="background-border-clear">
-		<code class="JavaScript">			
-			var firstName = 'Dong';
+author.crushOn = ['Coursera', 'GitHub', 'YouTube'];
 
-			var lastName = 'Zhou' ;
+author.sports = ['basketball', 'swimming', 'jogging'];
 
-			var phone = '408-893-3854' ;
+author.hobby = 'reading';
 
-		</code>
-	</main>
-	</pre>	
-	
+author.interested = ['Machine Learning', 'Search Engine', 'NodeJS & ReactJS'] ;
+
+</code></pre>
+
+	</div> <!--end col-->
+
+</div>	<!--row end-->
 
 
 	<% include ../partials/footer %>
