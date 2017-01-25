@@ -91,21 +91,47 @@ circles.attr('cx', function(d) {
 	//console.log(d.title);
 }).call(drag);
 
-
+circles.each(collide(.5));
 
 var texts = svg.selectAll('text').data(dataSet).enter().append('text');
 texts.attr('x', function(d) {
-		return d.cx - d.r + 3;
-	}).attr('y', function(d) {
-		return d.cy + 3;
-	}).text(function(d) {
-		//return d.title.toUpperCase();
-		return "";
-	})
-	.attr('font-size', '15px')
-	.attr('fill', 'black')
-	.attr('font-family', 'Raleway');
+	return d.cx - d.r + 3;
+}).attr('y', function(d) {
+	return d.cy + 3;
+}).text(function(d) {
+	//return d.title.toUpperCase();
+	return "";
+}).attr('font-size', '15px').attr('fill', 'black').attr('font-family', 'Raleway');
 
+
+// Resolves collisions between d and all other circles.
+function collide(alpha) {
+	console.log(d3.geom);
+	var quadtree = d3.quadtree().addAll(circles);
+	return function(d) {
+		var r = d.radius + maxRadius + Math.max(padding, clusterPadding),
+			nx1 = d.x - r,
+			nx2 = d.x + r,
+			ny1 = d.y - r,
+			ny2 = d.y + r;
+		quadtree.visit(function(quad, x1, y1, x2, y2) {
+			if (quad.point && (quad.point !== d)) {
+				var x = d.x - quad.point.x,
+					y = d.y - quad.point.y,
+					l = Math.sqrt(x * x + y * y),
+					r = d.radius + quad.point.radius + (d.cluster === quad.point.cluster ? padding : clusterPadding);
+				if (l < r) {
+					l = (l - r) / l * alpha;
+					d.x -= x *= l;
+					d.y -= y *= l;
+					quad.point.x += x;
+					quad.point.y += y;
+				}
+			}
+			return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+		});
+	};
+}
 //
 
 
