@@ -54,23 +54,29 @@ data.addList(frontEnd);
 
 // ---------------------------- d3 -----------------------------------
 
-
-var svgHeight = 600;
-var svgWidth = 1200;
-var margin = 200;
+var svgHeight = window.innerHeight;
+var svgWidth = window.innerWidth;
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 var dataSet = data.elements;
 dataSet.forEach(function(data) {
-	data.color = color(data.weight);
-	data.cx = getRandom(50, svgWidth - 100);
-	data.cy = getRandom(100, svgHeight - margin);
+	var cx = getRandom(50, svgWidth - 50);
+	var cy = getRandom(50, svgHeight - 50);
 	data.r = data.title.length * 6;
+	data.color = color(data.weight);
+	data.cx = cx;
+	data.cy = cy;
 });
 
-
-
 var svg = d3.select('body').append('svg').attr('width', svgWidth).attr('height', svgHeight);
+
+var drag = d3.drag().on('start', function(d) {
+	d3.select(this).raise().classed("active", true);
+}).on('drag', function(d) {
+	d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+}).on('end', function(d) {
+	d3.select(this).classed("active", false);
+});
 
 var circles = svg.selectAll('circle').data(dataSet).enter().append('circle');
 circles.attr('cx', function(d) {
@@ -81,7 +87,10 @@ circles.attr('cx', function(d) {
 	return d.r;
 }).style('fill', function(d) {
 	return d.color;
-});
+}).on('mouseover', function(d) {
+	//console.log(d.title);
+}).call(drag);
+
 
 
 var texts = svg.selectAll('text').data(dataSet).enter().append('text');
@@ -90,7 +99,8 @@ texts.attr('x', function(d) {
 	}).attr('y', function(d) {
 		return d.cy + 3;
 	}).text(function(d) {
-		return d.title.toUpperCase();
+		//return d.title.toUpperCase();
+		return "";
 	})
 	.attr('font-size', '15px')
 	.attr('fill', 'black')
