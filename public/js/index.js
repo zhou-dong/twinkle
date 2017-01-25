@@ -3,12 +3,12 @@ function Element(title, weight) {
 	this.weight = initWeight(weight);
 
 	function initWeight(weight) {
-		return !weight ? getRandom(1, 10) : weight;
+		return !weight ? getRandom(4, 10) : weight;
 	}
+}
 
-	function getRandom(min, max) {
-		return Math.random() * (max - min) + min;
-	}
+function getRandom(min, max) {
+	return Math.random() * (max - min) + min;
 }
 
 function Data() {
@@ -26,7 +26,7 @@ function Data() {
 
 var data = new Data();
 
-var language = ['R', 'Python', 'Java', 'JavaScript'];
+var language = ['R Language', 'Python', 'Java', 'JavaScript'];
 var os = ['Linux', 'RedHat', 'Ubuntu', 'CentOS', 'Fedora'];
 var search = ['Elasticsearch', 'Solr', 'Lucene'];
 var js = ['NodeJS', 'ReactJS', 'Redux', 'AngularJS', 'EJS', 'JQuary', 'Gulp'];
@@ -52,9 +52,56 @@ data.addList(bigData);
 data.addList(classic);
 data.addList(frontEnd);
 
-console.log(data.elements.length);
-console.log(data.elements);
-
 // ---------------------------- d3 -----------------------------------
 
-console.log(d3);
+
+var svgHeight = 600;
+var svgWidth = 1200;
+var margin = 200;
+var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+var dataSet = data.elements;
+dataSet.forEach(function(data) {
+	data.color = color(data.weight);
+	data.cx = getRandom(50, svgWidth - 100);
+	data.cy = getRandom(100, svgHeight - margin);
+	data.r = data.title.length * 6;
+});
+
+
+
+var svg = d3.select('body').append('svg').attr('width', svgWidth).attr('height', svgHeight);
+
+var circles = svg.selectAll('circle').data(dataSet).enter().append('circle');
+circles.attr('cx', function(d) {
+	return d.cx;
+}).attr('cy', function(d) {
+	return d.cy;
+}).attr('r', function(d) {
+	return d.r;
+}).style('fill', function(d) {
+	return d.color;
+});
+
+
+var texts = svg.selectAll('text').data(dataSet).enter().append('text');
+texts.attr('x', function(d) {
+		return d.cx - d.r + 3;
+	}).attr('y', function(d) {
+		return d.cy + 3;
+	}).text(function(d) {
+		return d.title.toUpperCase();
+	})
+	.attr('font-size', '15px')
+	.attr('fill', 'black')
+	.attr('font-family', 'Raleway');
+
+//
+
+
+
+//
+
+
+
+//
